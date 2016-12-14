@@ -1,0 +1,23 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - echo Installing Mocha...
+      - npm install -g mocha
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install unit.js
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Compiling the Node.js code
+      - mocha HelloWorld.js
+  post_build:
+    commands:
+      - echo Build completed on `date`
+	  - aws sns publish --topic-arn NotifyMe --subject 'AWS CodeBuild - Build Completed' --message 'The build has completed. For build details, go to https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logStream:group=/aws/codebuild/sample-build-notifications-project in Amazon CloudWatch Logs.' 
+artifacts:
+  files:
+    - HelloWorld.js
