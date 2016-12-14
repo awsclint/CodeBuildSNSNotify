@@ -18,7 +18,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - aws sns publish --topic-arn arn:aws:sns:us-east-1:618039141415:NotifyMe --subject 'AWS CodeBuild - Build Completed' --message 'The build has completed. For build details, go to https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logStream:group=/aws/codebuild/sample-build-notifications-project in Amazon CloudWatch Logs.'
-      - aws codebuild batch-get-builds --ids $CODEBUILD_BUILD_ID
+      - echo `aws codebuild batch-get-builds --ids $CODEBUILD_BUILD_ID`
 artifacts:
   files:
     - HelloWorld.js
